@@ -39,9 +39,9 @@
 
 🔐 Roles
 
-0 → Admin (you'll need to assign this manually through your database)
-1 → User
-1 → Shopkeeper (you can assign this in admin dashboard too)
+        0 → Admin (you'll need to assign this manually through your database)
+        1 → User
+        1 → Shopkeeper (you can assign this in admin dashboard too)
 
         (       || Admin(s) manage the whole platform ||       )
 
