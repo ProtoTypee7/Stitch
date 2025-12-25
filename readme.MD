@@ -1,3 +1,6 @@
+![Preview](https://github.com/ProtoTypee7/Stitch/blob/2b9b918cd131446967f9bbd25046a15496c09ff3/website.png?raw=true)
+
+
 📦 Required Packages & Setup
 
 # Install NuGet packages through dotnet ClI
@@ -46,6 +49,4 @@
         (       || Admin(s) manage the whole platform ||       )
 
 
-// Screenshots
-![Preview](https://github.com/ProtoTypee7/Stitch/blob/2b9b918cd131446967f9bbd25046a15496c09ff3/website.png?raw=true)
 
