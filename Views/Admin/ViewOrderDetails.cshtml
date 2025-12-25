@@ -1,0 +1,84 @@
+@model P2WebMVC.Models.DomainModels.Order
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">Order Details</h2>
+
+    @if (Model != null)
+    {
+        <div class="mb-4">
+            <h5 class="fw-semibold">Order Summary</h5>
+            <p><strong>Order ID:</strong> @Model.OrderId</p>
+            <p><strong>Order Date:</strong> @Model.DateCreated.ToString("dd MMM yyyy")</p>
+            <p><strong>Status:</strong> @Model.OrderStatus</p>
+            <p><strong>Payment Status:</strong> @Model.PaymentStatus</p>
+            <p><strong>Payment Mode:</strong> @Model.PaymentMode</p>
+            <p><strong>Total Amount:</strong> ₹@Model.TotalPrice</p>
+        </div>
+
+        <div class="mb-4">
+            <h5 class="fw-semibold">Customer Details</h5>
+            <p><strong>Name:</strong> @Model.Buyer?.Username</p>
+            <p><strong>Email:</strong> @Model.Buyer?.Email</p>
+            <p><strong>Phone:</strong> @Model.Buyer?.Phone</p>
+        </div>
+
+        <div class="mb-4">
+            <h5 class="fw-semibold">Shipping Address</h5>
+            <p>
+                @Model.Address?.Street,<br />
+                @Model.Address?.City, @Model.Address?.State - @Model.Address?.Pincode<br />
+                @Model.Address?.Country
+            </p>
+        </div>
+
+        <div class="mb-4">
+            <h5 class="fw-semibold">Products in this Order</h5>
+
+            @if (Model.OrderProducts != null && Model.OrderProducts.Any())
+            {
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Image</th>
+                            <th>Qty</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderProducts)
+                        {
+                            <tr>
+                                <td>@item.Product?.ProductName</td>
+                                <td>
+                                    <img src="@item.Product?.ProductImage" alt="Product" style="width: 60px; height: auto;" />
+                                </td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Size</td>
+                                <td>@item.Color</td>
+                                <td>₹@item.Product?.ProductPrice</td>
+                                <td>₹@(item.Product?.ProductPrice * item.Quantity)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No products found in this order.</p>
+            }
+        </div>
+
+        <a asp-controller="Admin" asp-action="AllOrders" class="btn btn-outline-dark">← Back to All Orders</a>
+    }
+    else
+    {
+        <p class="text-danger">Order details could not be found.</p>
+    }
+</div>

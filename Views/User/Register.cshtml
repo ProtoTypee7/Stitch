@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+    .register-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+        width: 100%;
+        min-height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f7f7f7;
+    }
+
+    .register-form-box {
+        background-color: #fff;
+        padding: 40px;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .register-form-box h2 {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .register-form-box p a {
+        color: #000;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: none;
+        border-bottom: 1px solid #000;
+        background: transparent;
+        font-size: 14px;
+    }
+
+    .form-text {
+        font-size: 12px;
+        color: #555;
+        margin-top: -15px;
+        margin-bottom: 15px;
+    }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .form-check-label {
+        margin-left: 8px;
+        font-size: 14px;
+    }
+
+    .btn-submit {
+        background-color: #000;
+        color: #fff;
+        font-weight: bold;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background-color: #333;
+    }
+
+    .text-danger,
+    .text-success {
+        margin-top: 10px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="register-wrapper">
+    <div class="register-form-box">
+        <h2>CREATE ACCOUNT</h2>
+        <p>Already have an account? <a href="@Url.Action("Login", "User")">Sign in</a></p>
+
+        <form method="post">
+            <label for="Username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="Username" required />
+
+            <label for="Email" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="Email" required />
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+
+            <label for="Password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="Password" required />
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check" required />
+                <label class="form-check-label" for="check">Check me out</label>
+            </div>
+
+            <button type="submit" class="btn-submit">JOIN NOW</button>
+
+            <p class="text-danger pt-3">@ViewBag.errorMessage</p>
+            <p class="text-success">@ViewBag.successMessage</p>
+        </form>
+    </div>
+</div>

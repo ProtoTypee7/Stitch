@@ -1,0 +1,41 @@
+@model P2WebMVC.Models.DomainModels.Product
+<form method="post">
+    <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+    <div class="mb-3">
+        <label>Product Name</label>
+        <input type="text" class="form-control" name="ProductName" value="@Model.ProductName" />
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea class="form-control" name="ProductDescription">@Model.ProductDescription</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <input type="number" class="form-control" name="ProductPrice" value="@Model.ProductPrice" />
+    </div>
+
+    <div class="mb-3">
+        <label>Stock</label>
+        <input type="number" class="form-control" name="ProductStock" value="@Model.ProductStock" />
+    </div>
+
+    <div class="mb-3">
+        <label>Color</label>
+        <input type="text" class="form-control" name="Color" value="@Model.Color" />
+    </div>
+
+    <div class="mb-3">
+        <label>Size</label>
+        <input type="text" class="form-control" name="Size" value="@Model.Size" />
+    </div>
+    <div class="mb-3">
+        <label>Category</label>
+        @Html.DropDownListFor(model => model.Category, (SelectList)ViewBag.CategoryList, "Select Category", new { @class
+                = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-dark">Update Product</button>
+</form>

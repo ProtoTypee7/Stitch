@@ -1,0 +1,22 @@
+﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+        .nav-link {
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: black !important;
+        }
+    
+
+        
+
+
+
+@media (max-width: 768px) {
+   .pushright{
+    margin-left: 60% !important;
+   }
+}

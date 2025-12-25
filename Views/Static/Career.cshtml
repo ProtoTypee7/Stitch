@@ -1,0 +1,236 @@
+@{
+    ViewData["Title"] = "Career at STAGGER";
+}
+@{
+    ViewData["NoContainer"] = true;
+}
+
+
+<style>
+    .hero-banner {
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background: url('/assets/career.jpg') center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    }
+
+
+    .stagger-impact-section {
+        font-family: Georgia, serif;
+    }
+
+    .paragraph-text {
+        font-family: Georgia, serif;
+        margin-bottom: 120px;
+        margin-top: 50px
+    }
+
+    .stagger-counter {
+        font-family: Arial, Helvetica, sans-serif, ;
+        font-size: 14rem;
+        margin-bottom: 200px;
+    }
+
+    .lower-digit {
+        font-size: 5rem;
+    }
+
+
+
+    .stagger-counter {
+        opacity: 0;
+        transition: opacity 0.8s ease-in;
+    }
+
+    .stagger-counter.animated {
+        opacity: 1;
+    }
+
+
+    .stagger-counter {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
+    }
+
+    .stagger-counter.animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    .why-us {
+        font-family: Georgia, serif;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-top: 30px;
+    }
+
+    .f-size {
+        font-size: 2.8rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    .think-big {
+        font-family: Georgia, serif;
+        font-size: 3rem;
+        line-height: 1.6;
+        margin-top: 100px;
+        white-space: nowrap;
+
+
+    }
+</style>
+
+@{
+    ViewData["NoContainer"] = true;
+    ViewData["TransparentNav"] = true;
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+<section class="hero-banner position-relative text-white"
+    style="height: 100vh; background: url('/assets/career.jpg') center center / cover no-repeat;">
+    <div class="container h-100 d-flex flex-column justify-content-center align-items-center text-center">
+        <h1 class="display-4 fw-bold">The journey starts here<br>& it starts with us.</h1>
+        <form class="mt-4 w-75">
+            <div class="input-group shadow">
+                <span class="input-group-text bg-white border-0"><i class="fa fa-search text-dark"></i></span>
+                <input type="text" class="form-control form-control-lg border-0"
+                    placeholder="Search for a role, city, function..." />
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<section class="stagger-impact-section container-fluid px-5 py-5">
+    <div class="row gx-5 gy-5">
+        <!-- RIGHT: Paragraph -->
+        <div class="col-md-6 offset-md-6 mb-5">
+            <p class="fs-3 lh-base paragraph-text">
+                Where do you want to go? A journey with STAGGER unlocks a career with unexpected opportunities.
+                We are thousands of passionate people liberating fashion for the many. Together, we use our power,
+                scale and creativity to shape a more inclusive and sustainable future. The journey starts here —
+                it starts with you, joining our team.
+            </p>
+        </div>
+
+        <!-- LEFT: Numbers -->
+        <div class="col-md-6 pt-5">
+            <div class="d-flex align-items-end gap-5">
+                <div>
+                    <div class="text-uppercase small fw-semibold">Available Roles</div>
+                    <div class="display-1 fw-bold lh-1 stagger-counter" data-count="1936">0</div>
+                </div>
+                <div>
+                    <div class="text-uppercase small fw-semibold">Countries</div>
+                    <div class="display-3 fw-bold lh-1 stagger-counter lower-digit" data-count="90">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="container py-5">
+    <div class="row align-items-center mb-5">
+        <div class="col-md-5">
+            <div class="career-image bg-light"
+                style="height: 700px; background: url('/assets/whyus.png') center/cover no-repeat;"></div>
+        </div>
+        <div class="col-md-6">
+            <h3 class="fw-semibold f-size">Why STAGGER?</h3>
+            <p class="text-muted why-us">We foster a culture of belonging, creativity, and innovation. Every voice
+                matters, and every idea counts. At STAGGER, we believe in empowering individuals to thrive by embracing
+                diverse perspectives, encouraging bold thinking, and cultivating an environment where collaboration
+                drives progress. Whether you're a visionary, a maker, or a problem-solver, you'll find a place to grow,
+                lead, and make a real impact. Here, your passion finds purpose—and your work shapes the future of
+                fashion. <br>
+
+
+            </p>
+        </div>
+
+    </div>
+
+
+
+
+
+    <section class="category-marquee">
+
+
+
+        <div class="marquee-group">
+
+            <div class="marquee-track track-1">
+                <span>
+                    Engineering & Leadership ⁸ & Purchasing & Sourcing ²⁸ & Branding, Marketing & Communication ¹⁰ &
+                    Sustainability ⁴ & Stores ¹⁷⁹⁸
+                </span>
+                <span>
+                    Engineering & Leadership ⁸ & Purchasing & Sourcing ²⁸ & Branding, Marketing & Communication ¹⁰ &
+                    Sustainability ⁴ & Stores ¹⁷⁹⁸
+                </span>
+            </div>
+            <div class="marquee-track track-2">
+                <span>
+                    Customer Service ² & People, Culture, Inclusion & Diversity ¹³ & Logistics ²⁸ & Legal,
+                    Administration, Security & Compliance ⁹
+                </span>
+                <span>
+                    Customer Service ² & People, Culture, Inclusion & Diversity ¹³ & Logistics ²⁸ & Legal,
+                    Administration, Security & Compliance ⁹
+                </span>
+            </div>
+            <div class="marquee-track track-3">
+                <span>
+                    Design & Product Development ⁹ & Business Controlling ⁶ & Accounting & Finance
+                </span>
+                <span>
+                    Design & Product Development ⁹ & Business Controlling ⁶ & Accounting & Finance
+                </span>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <div class="row align-items-center mb-5 flex-md-row-reverse">
+        <div class="col-md-6">
+            <div class="career-image bg-light"
+                style="height: 800px; background: url('/assets/placetogrow.png') center/cover no-repeat;"></div>
+        </div>
+        <div class="col-md-6">
+            <h3 class="fw-semibold f-size">A Place to Grow</h3>
+            <p class="text-muted why-us">From your first day to your next promotion, we’re committed to helping you
+                reach your
+                potential.
+                At STAGGER, growth is more than a promise — it’s part of your everyday experience. We invest in your
+                ambitions with tailored development paths, cross-functional projects, and a culture that celebrates
+                curiosity. Whether you're switching roles, stepping into leadership, or mastering your craft, you'll be
+                supported by mentors, training, and a community that wants to see you thrive.
+
+            </p>
+        </div>
+    </div>
+    <p class="why-us think-big"> We think big, challenge the ordinary and colour outside the lines.</p>
+</div>
+
+<div class="bg-dark text-white text-center py-5">
+    <h2 class="fw-bold">Ready to make your mark in fashion?</h2>
+    <a href="#" class="btn btn-light mt-3 px-4 py-2 fw-semibold">View Job Opportunities</a>
+</div>

@@ -1,0 +1,63 @@
+@model List<User>
+@using P2WebMVC.Types
+
+@{
+    ViewData["Title"] = "All Users";
+}
+
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">All Registered Users</h2>
+
+    <a asp-controller="Admin" asp-action="Dashboard" class="text-decoration-underline text-muted mb-3 d-block">
+        ← Back to Dashboard</a>
+    <table class="table table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>
+                        @if (user.Role == Role.User)
+                        {
+                            <form asp-action="PromoteToStoreKeeper" asp-controller="Admin" method="post"
+                                style="display:inline;">
+                                <input type="hidden" name="id" value="@user.UserId" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Promote to StoreKeeper</button>
+                            </form>
+                        }
+                        else if (user.Role == Role.StoreKeeper)
+                        {
+                            <form asp-action="DemoteToUser" asp-controller="Admin" method="post" style="display:inline;">
+                                <input type="hidden" name="userId" value="@user.UserId" />
+                                <button type="submit" class="btn btn-sm btn-outline-warning">Demote to User</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Admin</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @* @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["SuccessMessage"]</div>
+    } *@
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["ErrorMessage"]</div>
+    }
+</div>

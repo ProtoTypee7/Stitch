@@ -1,0 +1,71 @@
+﻿@{
+  ViewData["Title"] = "Login";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/login.css" />
+
+<div class="login-wrapper">
+  <div class="login-flip-container d-flex flex-md-row flex-column" id="flipContainer">
+
+    <!-- Login Section -->
+    <div class="login-card front flex-fill ">
+      <div class="login-form-section p-4">
+        <h2>SIGN IN TO YOUR ACCOUNT</h2>
+        <p>First time visiting? You might need to <a asp-controller="User" asp-action="ForgotPassword">reset your
+            password</a>.</p>
+
+        <form method="post">
+          <label>Email</label>
+          <input type="email" name="Email" required class="form-control mb-3" />
+
+          <label>Password</label>
+          <input type="password" name="Password" required class="form-control mb-3" />
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <input type="checkbox" id="remember" />
+              <label for="remember">Remember Me</label>
+            </div>
+            <a asp-controller="User" asp-action="ForgotPassword">Reset Password</a>
+          </div>
+
+          <button type="submit" class="btn btn-dark w-100">SIGN IN</button>
+
+          <p class="text-danger mt-2">@ViewBag.errorMessage</p>
+          <small class="d-block mt-3 text-muted">
+            By signing in, you agree to the <a href="#">Terms</a> and <a href="#">Privacy</a>.
+          </small>
+        </form>
+
+        <button class="btn btn-link mt-4 d-md-none" onclick="flipToRegister()">Create Account</button>
+      </div>
+    </div>
+
+    <!-- Register Section -->
+    <div class="login-card back flex-fill bg-light">
+      <div class="login-info-section p-4">
+        <h2>DISCOVER THE BENEFITS</h2>
+        <p>One account. Multiple brands. Endless possibilities.</p>
+        <img src="~/Assets/Login.png" alt="Promo" class="img-fluid mb-3" />
+        <ul class="ps-3">
+          <li>✔ Personalized product recommendations</li>
+          <li>✔ Track orders and manage subscriptions</li>
+        </ul>
+        <a href="@Url.Action("Register", "User")" class="btn btn-dark w-100 mt-3">CREATE ACCOUNT</a>
+        <button class="btn btn-link mt-3 d-md-none" onclick="flipToLogin()">← Back to Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function flipToRegister() {
+    document.getElementById('flipContainer').classList.add('flipped');
+  }
+
+  function flipToLogin() {
+    document.getElementById('flipContainer').classList.remove('flipped');
+  }
+</script>

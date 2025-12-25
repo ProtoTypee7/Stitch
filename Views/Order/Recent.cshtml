@@ -1,0 +1,50 @@
+﻿@model P2WebMVC.Models.ViewModels.OrderView
+
+@{
+    ViewData["Title"] = "Recent Orders";
+}
+
+
+
+
+<div class="container my-5" style="max-width: 950px;">
+    <h1 class="fw-bold display-5" style="font-family: 'Helvetica Neue', sans-serif;">MY PURCHASES</h1>
+
+    <ul class="nav nav-underline mt-4 mb-5">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">ONLINE (@Model.Orders.Count)</a>
+        </li>
+        @* <li class="nav-item">
+            <a class="nav-link text-muted" href="#">STORE (0)</a>
+        </li> *@
+    </ul>
+
+    @if (!Model.Orders.Any())
+    {
+        <p>No purchases yet.</p>
+    }
+    else
+    {
+        foreach (var order in Model.Orders)
+        {
+            <div class="mb-5 pb-3 border-bottom">
+                <p class="mb-1">ORDER: <span class="fw-semibold">@order.OrderId.ToString().Substring(0, 12).ToUpper()</span></p>
+                <p class="fw-bold text-uppercase text-dark mb-1">@order.OrderStatus.ToString()</p>
+                <p class="text-muted mb-1">@order.DateCreated.ToString("dd/MM/yyyy")</p>
+                <p class="fw-bold">Rs.@order.TotalPrice.ToString("N2")</p>
+
+
+
+                <div class="d-flex flex-wrap gap-3 mt-3">
+                    @foreach (var item in order.OrderProducts)
+                    {
+                        <div style="width: 150px;">
+                            <img src="@item.Product?.ProductImage" alt="@item.Product?.ProductName"
+                                class="img-fluid rounded shadow-sm" />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>

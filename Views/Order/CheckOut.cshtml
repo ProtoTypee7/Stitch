@@ -1,0 +1,168 @@
+﻿@* Bootstrap Collapse Script *@
+@section Scripts {
+  <script>
+    function toggleSection(id) {
+      const section = document.getElementById(id);
+      const collapse = new bootstrap.Collapse(section, {
+        toggle: true
+      });
+    }
+  </script>
+}
+
+<div style="margin-top: 3%;" class="row">
+  <div class="col-lg-7">
+
+    <div class="mb-4">
+      <h5 class="fw-bold">MY INFORMATION</h5>
+      <p class="m-0">@Model?.Address?.FirstName @Model?.Address?.LastName</p>
+      <p class="text-muted">@User?.Identity?.Name</p>
+      <a href="javascript:void(0)" onclick="toggleSection('infoForm')" class="text-decoration-underline">EDIT</a>
+
+      <div class="collapse mt-3" id="infoForm">
+        <form class="address_form" method="post" asp-controller="User" asp-action="CreateAddress" asp-route-CartId="@Model?.Cart?.CartId">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" name="FirstName" value="@Model?.Address?.FirstName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-control" name="LastName" value="@Model?.Address?.LastName" required>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label class="form-label">Street</label>
+              <input type="text" class="form-control" name="Street" value="@Model?.Address?.Street">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" name="City" value="@Model?.Address?.City">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">District</label>
+              <input type="text" class="form-control" name="District" value="@Model?.Address?.District">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label class="form-label">Pincode</label>
+              <input type="text" class="form-control" name="Pincode" value="@Model?.Address?.Pincode">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">State</label>
+              <input type="text" class="form-control" name="State" value="@Model?.Address?.State">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Country</label>
+              <input type="text" class="form-control" name="Country" value="@Model?.Address?.Country">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Phone</label>
+              <input type="text" class="form-control" name="Phone" value="@Model?.Address?.Phone">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Landmark</label>
+              <input type="text" class="form-control" name="Landmark" value="@Model?.Address?.Landmark">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-dark w-100">@(Model?.Address == null ? "Save Address" : "Update Address")</button>
+        </form>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="mb-4">
+      <h5 class="fw-bold">BILLING ADDRESS</h5>
+      <p class="text-muted">@Model?.Address?.Street, @Model?.Address?.City, @Model?.Address?.District</p>
+      <p class="text-muted">@Model?.Address?.Pincode, @Model?.Address?.State, @Model?.Address?.Country</p>
+      <a href="javascript:void(0)" onclick="toggleSection('infoForm')" class="text-decoration-underline">EDIT</a>
+    </div>
+
+    <hr />
+
+    <div class="mb-4">
+      <h5 class="fw-bold">DELIVERY</h5>
+      <p class="text-muted">@Model?.Address?.FirstName @Model?.Address?.LastName</p>
+      <p class="text-muted">@Model?.Address?.Phone</p>
+      <a href="javascript:void(0)" onclick="toggleSection('infoForm')" class="text-decoration-underline">EDIT</a>
+    </div>
+
+    <hr />
+
+    <div class="mb-4">
+      <h5 class="fw-bold">PARCEL</h5>
+      <p class="text-muted">Shipped by H&M</p>
+      <div class="mt-2">
+        @foreach (dynamic product in Model.CartProducts)
+        {
+          <div class="d-flex align-items-center mb-2">
+            <img src="@product?.Product?.ProductImage" alt="Product" class="me-2" style="width: 100px; height: auto;" />
+            <div>
+              <div class="fw-semibold">@product?.Product?.ProductName</div>
+              <div class="text-muted small">@product?.Quantity x Rs. @product?.Product?.ProductPrice</div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-5">
+    <div class="order_summary p-4">
+      <h5 class="fw-bold mb-4">ORDER SUMMARY</h5>
+
+      @foreach (var product in Model.CartProducts)
+      {
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="text-muted">@product?.Product?.ProductName</div>
+          <div class="text-muted">@product?.Quantity x @product?.Product?.ProductPrice</div>
+        </div>
+      }
+
+      <div class="d-flex justify-content-between mt-4">
+        <span>Order Value</span>
+        <strong>Rs. @Model?.Cart?.CartTotal</strong>
+      </div>
+
+      <div class="d-flex justify-content-between mt-2">
+        <span>Delivery Fee</span>
+        <span class="text-success">FREE</span>
+      </div>
+
+      <div class="d-flex justify-content-between fw-bold fs-5 mt-4">
+        <span>Total</span>
+        <span>Rs. @Model?.Cart?.CartTotal</span>
+      </div>
+
+      <a class="btn btn-dark w-100 mt-4" asp-controller="Order" asp-action="Create" asp-route-CartId="@Model?.Cart?.CartId">
+        COMPLETE PURCHASE
+      </a>
+
+      <div class="text-muted mt-3 small">
+  <p class="mb-0">
+    <i class="bi bi-lock-fill me-1" style="font-size: 0.75rem;"></i>
+    All data is kept secure.
+  </p>
+  <p class="mb-0">
+    <i class="" style="font-size: 0.75rem;"></i>
+    Payment data is encrypted and processed securely.
+  </p>
+</div>
+ <div style="margin-top: 20%;" class="mb-4">
+      <h5 class="fw-bold">PAYMENT</h5>
+      <div style="margin-top: 5%;" class="d-flex align-items-center">
+        <img src="~/assets/razorpay-logo.png" alt="RazorPay Logo" style="height: 50px;" class="me-2" />
+        <span class="fw-semibold">RazorPay</span>
+      </div>
+    </div>
+    </div>
+    
+  </div>
+  
+</div>

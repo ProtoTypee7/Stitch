@@ -1,0 +1,322 @@
+﻿@{
+    var currentCategory = Context.Request.Query["Category"].ToString();
+
+    var userId = Context.Items["UserId"] as Guid?;
+    bool isLoggedIn = userId != null;
+
+     
+   
+    
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style>
+        .navbar.bg-transparent .nav-link,
+.navbar.bg-transparent .navbar-brand,
+.navbar.bg-transparent i,
+.navbar.bg-transparent a {
+    color: white !important;
+}
+
+    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | Stagger</title>
+
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @* <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" /> *@
+
+    <link rel="stylesheet" href="~/P2WebMVC.styles.css" asp-append-version="true" />
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <header>
+        
+        @{
+    var transparentNav = ViewData["TransparentNav"] as bool? == true;
+}
+
+<nav class="navbar navbar-expand-lg @(transparentNav ? "bg-transparent position-absolute top-0 w-100 z-3" : "bg-white border-bottom shadow-sm")">
+    <div class="container-fluid px-4">
+        <!-- Logo -->
+        <a class="navbar-brand @(transparentNav ? "text-white" : "text-dark")" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/assets/Logo.png" alt="Logo" />
+        </a>
+
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarMain">
+                    <!-- Center Nav Links -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-4">
+                        <li class="nav-item"></li>
+                        <!-- HOME (General) -->
+                        <a class="nav-link @(currentCategory == "General" ? "fw-bold text-dark" : "text-muted")"
+                            asp-area="" asp-controller="Product" asp-action="Index"
+                            asp-route-Category="General">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- LADIES (Electronics) -->
+                            <a class="nav-link @(currentCategory == "Electronics" ? "fw-bold text-dark" : "text-muted")"
+                                asp-area="" asp-controller="Product" asp-action="Index"
+                                asp-route-Category="Ladies">LADIES</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- MEN (Clothing) -->
+                            <a class="nav-link @(currentCategory == "Clothing" ? "fw-bold text-dark" : "text-muted")"
+                                asp-area="" asp-controller="Product" asp-action="Index" asp-route-Category="Men">MEN</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- KIDS (Automotive) -->
+                            <a class="nav-link @(currentCategory == "Automotive" ? "fw-bold text-dark" : "text-muted")"
+                                asp-area="" asp-controller="Product" asp-action="Index"
+                                asp-route-Category="Kids">KIDS</a>
+
+                        </li>
+
+                    </ul>
+
+                    <!-- Right Icons -->
+                    <div class="d-flex align-items-center gap-3 ">
+                        <a href="#" class="text-dark "><i class="bi bi-search "></i></a>
+
+                        <div class="dropdown position-relative pushright">
+                            <a class="text-dark" href="#" id="accountDropdown">
+                                <i class="bi bi-person fs-5"></i>
+                            </a>
+
+                            @if (isLoggedIn)
+                            {
+                                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm p-3 position-absolute "
+                                    aria-labelledby="accountDropdown"
+                                    style="min-width: 230px; top: 100%; right: 0; display: none;">
+                                    <li class="text-uppercase fw-bold small text-dark mb-2 px-2">Account & Orders</li>
+                                    <li>
+                                        <a class="dropdown-item py-2" asp-controller="Order" asp-action="Recent"
+                                            asp-route-UserId="@userId">
+                                            Orders
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" href="#">Memberships</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" asp-controller="User" asp-action="AccountSettings"
+                                            asp-route-CartId="@ViewBag.CartId">
+                                            Account Settings
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2 text-danger" asp-controller="User" asp-action="SignOut"
+                                            >
+                                            Signout
+                                        </a>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm p-3 position-absolute"
+                                    aria-labelledby="accountDropdown"
+                                    style="min-width: 200px; top: 100%; right: 0; display: none;">
+                                    <li>
+                                        <a class="dropdown-item py-2" asp-controller="User" asp-action="Login">Log in</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" asp-controller="User"
+                                            asp-action="Register">Register</a>
+                                    </li>
+                                </ul>
+                            }
+                        </div>
+
+
+
+
+
+                        <a asp-controller="User" asp-action="Wishlist" asp-route-userId="@ViewBag.UserId" class="text-dark">
+    <i class="bi bi-heart"></i>
+</a>
+
+
+                        <a asp-controller="User" asp-action="Cart" class="nav-link position-relative">
+                            <i class="bi bi-bag"></i>
+                            @if (ViewBag.CartItemCount != null && ViewBag.CartItemCount > 0)
+                            {
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    @ViewBag.CartItemCount
+                                </span>
+                            }
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+
+
+
+    <div class="notification_bar">
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @ViewBag.ErrorMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage as string))
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @ViewBag.ErrorMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+    </div>
+
+
+
+    @if (ViewData["NoContainer"] as bool? == true)
+    {
+        @RenderBody()
+    }
+    else
+    {
+        <div class="container" style="min-height: 90vh;">
+            @RenderBody()
+        </div>
+    }
+
+
+
+    <footer class="bg-white text-dark border-top py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Shop -->
+                <div class="col-6 col-md-3 mb-4">
+                    <h6 class="fw-bold">Shop</h6>
+                    <ul class="list-unstyled">
+                     <li><a class="text-decoration-none text-dark" asp-controller="Product" asp-action="Index" asp-route-Category="Ladies">Ladies</a></li>
+<li><a class="text-decoration-none text-dark" asp-controller="Product" asp-action="Index" asp-route-Category="Men">Men</a></li>
+<li><a class="text-decoration-none text-dark" asp-controller="Product" asp-action="Index" asp-route-Category="Kids">Kids</a></li>
+<li><a class="text-decoration-none text-dark" asp-controller="Product" asp-action="Index" asp-route-Category="General">General</a></li>
+<li><a class="text-decoration-none text-dark" asp-controller="Home" asp-action="Index">Home</a></li> <!-- optional -->
+
+                    </ul>
+                </div>
+
+                <!-- Corporate Info -->
+                <div class="col-6 col-md-3 mb-4">
+                    <h6 class="fw-bold">Corporate Info</h6>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a asp-controller="Static" asp-action="Career" class="text-decoration-none text-dark">
+                                Career at STAGGER
+                            </a>
+                        </li>
+
+                        <li><a href="#" class="text-decoration-none text-dark">About STAGGER Group</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Sustainability</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Press</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Investor Relations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Help -->
+                <div class="col-6 col-md-3 mb-4">
+                    <h6 class="fw-bold">Help</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-dark">Customer Service</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">My STAGGER</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Find a Store</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Privacy & Legal</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sign up -->
+                <div class="col-6 col-md-3 mb-4">
+                    <p>Sign up now and be the first to know about exclusive offers, latest fashion news & style tips!
+                    </p>
+                    <a href="#" class="text-decoration-none fw-bold text-dark">READ MORE</a>
+                </div>
+            </div>
+
+            <!-- Bottom Brand + Region -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-4 mt-4 border-top">
+                <div class="mb-2 mb-md-0">
+                    <img src="~/assets/Logo.png" alt="STAGGER Logo" style="height: ;">
+                </div>
+                <div class="text-muted">
+                    INDIA (Rs.) | <a href="#" class="text-decoration-none text-dark">CHANGE REGION</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+
+
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

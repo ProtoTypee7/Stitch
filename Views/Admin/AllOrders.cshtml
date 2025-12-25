@@ -1,0 +1,56 @@
+@model IEnumerable<P2WebMVC.Models.DomainModels.Order>
+
+@{
+    ViewData["Title"] = "All Orders";
+}
+
+<div class="container py-5">
+    <a asp-controller="Admin" asp-action="Dashboard" class="text-decoration-underline text-muted d-block mb-4">
+        ← Back to Dashboard
+    </a>
+
+    <h2 class="fw-bold mb-4">All Orders</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Order ID</th>
+                <th>Email</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.Buyer?.Email</td>
+                    <td>₹@order.TotalPrice</td>
+                    <td>@order.OrderStatus</td>
+                    <td>@order.PaymentStatus</td>
+                    <td>
+                        @if (order.PaymentStatus == P2WebMVC.Types.PaymentStatus.Succesfull && order.OrderStatus ==
+                                            P2WebMVC.Types.OrderStatus.confirmed)
+                        {
+                            <form asp-action="DispatchOrder" asp-controller="Admin" method="post" style="display:inline;">
+                                <input type="hidden" name="orderId" value="@order.OrderId" />
+                                <button type="submit" class="btn btn-sm btn-outline-success">Dispatch</button>
+                            </form>
+                        }
+                        else if (order.OrderStatus == P2WebMVC.Types.OrderStatus.Shipped)
+                        {
+                            <span class="badge bg-success">Dispatched</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No action</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

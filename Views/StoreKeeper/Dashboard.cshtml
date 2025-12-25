@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "ShopKeeper Dashboard";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-5">Welcome to the StoreKeeper Dashboard</h1>
+        <p class="text-muted">Manage your products and orders seamlessly.</p>
+    </div>
+
+    <div class="row justify-content-center g-4">
+        <!-- Add Product -->
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold">Add New Product</h5>
+                    <p class="card-text text-muted">Upload and publish a new item to your catalog.</p>
+                    <a class="btn btn-outline-primary w-100" asp-controller="Admin" asp-action="CreateProduct">Add
+                        Product</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Products -->
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold">Manage Products</h5>
+                    <p class="card-text text-muted">Edit or delete your product listings.</p>
+                    <a asp-controller="Admin" asp-action="ManageProducts" class="btn btn-dark w-100">Manage Products</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Orders -->
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold">View Orders</h5>
+                    <p class="card-text text-muted">Track user purchases and delivery status.</p>
+                    <a asp-controller="Admin" asp-action="AllOrders" class="btn btn-outline-dark w-100">View Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+﻿@model P2WebMVC.Models.ViewModels.ProductView
+@{
+    ViewData["Title"] = "Product Details";
+    var product = Model?.Product;
+    var sizes = (product?.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+    var colors = (product?.Color ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+}
+
+<style>
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 40px;
+        padding: 30px;
+        max-width: 1300px;
+        margin: auto;
+    }
+
+
+    .product-image img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
+    }
+
+
+    .product-info {
+        flex: 1;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .product-info h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .price {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .label {
+        font-weight: 600;
+        margin-top: 20px;
+        margin-bottom: 8px;
+    }
+
+    .color-swatches img {
+        width: 60px;
+        height: 70px;
+        object-fit: cover;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .size-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        gap: 10px;
+        max-width: 300px;
+    }
+
+    .size-grid input[type="radio"] {
+        display: none;
+    }
+
+    .size-grid label {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .size-grid input[type="radio"]:checked+label {
+        border: 2px solid black;
+        font-weight: bold;
+    }
+
+    .btn-black {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        text-transform: uppercase;
+        width: 100%;
+        letter-spacing: 1px;
+    }
+
+    .back-link {
+        margin-top: 30px;
+        display: inline-block;
+    }
+
+    .stock-msg {
+        margin-top: 10px;
+        font-weight: 500;
+    }
+</style>
+
+<div class="product-container">
+    <div class="product-image">
+        <img src="@product?.ProductImage" alt="@product?.ProductName" />
+    </div>
+
+    <div class="product-info">
+        <h2>@product?.ProductName</h2>
+        <div class="price">Rs. @product?.ProductPrice</div>
+        <small class="text-muted">MRP inclusive of all taxes</small>
+
+        <div class="label">COLOUR: @(colors.FirstOrDefault() ?? "Default")</div>
+        <div class="color-swatches d-flex align-items-center">
+            @foreach (var color in colors)
+            {
+                <div title="@color.Trim()"
+                    style="width: 20px; height: 20px; border-radius: 50%; background-color: @color.Trim(); border: 1px solid #ccc; margin-right: 10px;">
+                </div>
+            }
+        </div>
+
+
+        <form method="post" asp-controller="Product" asp-action="AddToCart" asp-route-ProductId="@product?.ProductId">
+            <div class="label">SELECT SIZE</div>
+            <div class="size-grid">
+                @for (int i = 0; i < sizes.Length; i++)
+                {
+                    var size = sizes[i].Trim();
+                    <input type="radio" name="Size" id="size_@i" value="@size" @(i == 0 ? "checked" : "") />
+                    <label for="size_@i">@size</label>
+                }
+            </div>
+
+            <div class="label mt-3">QUANTITY</div>
+            <input type="number" name="Quantity" min="1" max="5" value="1" class="form-control mb-3"
+                style="width: 120px;">
+
+            <input type="hidden" name="Color" value="@(colors.FirstOrDefault()?.Trim())" />
+
+            @if (product?.ProductStock < 5)
+            {
+                <div class="stock-msg text-danger">Hurry up! Only @product?.ProductStock left</div>
+            }
+            else
+            {
+                <div class="stock-msg text-success">@product?.ProductStock in stock</div>
+            }
+
+            <button type="submit" class="btn btn-black mt-4">Add</button>
+        </form>
+
+        <a asp-controller="Product" asp-action="Index" asp-route-Category="@ViewBag.Category"
+            class="back-link text-decoration-underline text-muted">← Back to Products</a>
+    </div>
+</div>

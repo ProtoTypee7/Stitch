@@ -1,0 +1,203 @@
+/* 
+  .login-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .login-container {
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    border: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .login-form-section,
+  .login-info-section {
+    flex: 1;
+    padding: 40px;
+  }
+
+  .login-form-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .login-form-section p {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  form input[type="email"],
+  form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .checkbox-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #eaeaea;
+  }
+
+  .reset-password-link {
+    text-decoration: underline;
+    font-size: 12px;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  small {
+    display: block;
+    font-size: 11px;
+    margin-top: 15px;
+    color: #666;
+  }
+
+  .login-info-section {
+    background-color: #fafafa;
+    border-left: 1px solid #eee;
+  }
+
+  .login-info-section h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .login-info-section p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .login-info-section img {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .login-info-section ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+
+  .login-info-section ul li {
+    margin-bottom: 10px;
+  }
+
+  .create-account-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .create-account-btn:hover {
+    background-color: #222;
+  }
+
+
+  @media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-form-section,
+  .login-info-section {
+    padding: 20px;
+    border-left: none;
+  }
+
+  .login-info-section {
+    border-top: 1px solid #eee;
+  }
+}
+ */
+
+
+ .login-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-flip-container {
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+}
+
+.login-card {
+  width: 100%;
+  transition: transform 0.8s ease-in-out;
+  backface-visibility: hidden;
+}
+
+.login-card.front,
+.login-card.back {
+  display: block;
+}
+
+/* Flip behavior only on mobile */
+@media (max-width: 768px) {
+  .login-flip-container {
+    perspective: 1000px;
+    height: auto;
+    position: relative;
+  }
+
+  .login-card.front,
+  .login-card.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .login-card.back {
+    transform: rotateY(180deg);
+  }
+
+  .login-flip-container.flipped .front {
+    transform: rotateY(180deg);
+    z-index: 1;
+  }
+
+  .login-flip-container.flipped .back {
+    transform: rotateY(0deg);
+    z-index: 2;
+  }
+}

@@ -1,0 +1,110 @@
+﻿@model P2WebMVC.Models.ViewModels.CartView
+
+@{
+    ViewData["title"] = "Cart";
+}
+<style>
+    .btn-black {
+        background-color: #000;
+        color: #fff;
+        border-radius: 0;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-black:hover {
+        background-color: #f2f2f2;
+        color: #000;
+    }
+</style>
+
+<div class="container py-5">
+    <h2 class="fw-bold fs-1 mb-5">SHOPPING BAG</h2>
+
+    @if (Model?.CartProducts != null && Model.CartProducts.Any())
+    {
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-7">
+                @foreach (var cartProduct in Model.CartProducts)
+                {
+                    <div class="d-flex border-bottom py-4 align-items-center">
+                        <img src="@cartProduct?.Product?.ProductImage" alt="Product" class="me-4"
+                            style="width: 100px; height: auto;" />
+                        <div class="flex-grow-1">
+                            <h6 class="fw-bold mb-1">@cartProduct.Product.ProductName</h6>
+                            <p class="mb-1 text-muted">Colour: @cartProduct.Product.Color</p>
+                            <p class="mb-1 text-muted">Size: @cartProduct.Product.Size</p>
+                            <p class="mb-1 text-muted">Quantity: @cartProduct.Quantity</p>
+                            <p class="fw-semibold">Total: Rs. @(cartProduct.Quantity* cartProduct.Product.ProductPrice)</p>
+
+                            <form method="post" asp-controller="Product" asp-action="UpdateQuantity" class="d-inline">
+                                <input type="hidden" name="ProductId" value="@cartProduct.ProductId" />
+                                <button type="submit" name="action" value="decrease" class="btn border px-3">−</button>
+                                <span class="mx-2">@cartProduct.Quantity</span>
+                                <button type="submit" name="action" value="increase" class="btn border px-3">＋</button>
+                            </form>
+                        </div>
+                        <form asp-controller="Product" asp-action="RemoveFromCart" method="post" class="d-inline">
+                            <input type="hidden" name="ProductId" value="@cartProduct.ProductId" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger ms-3">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                }
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-5">
+                <div class="border p-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="fw-bold">DISCOUNTS</span>
+                        <a href="#" class="text-decoration-underline text-dark">ADD</a>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Order value</span>
+                        <span class="fw-semibold">Rs. @Model?.Cart?.CartTotal</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Estimated delivery fee</span>
+                        <span class="fw-semibold">FREE</span>
+                    </div>
+                    <div class="border-top my-3"></div>
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-bold">TOTAL</span>
+                        <span class="fw-bold">Rs. @Model?.Cart?.CartTotal</span>
+                    </div>
+
+                    <a class="btn btn-black w-100 mt-4 py-2" asp-controller="Order" asp-action="Checkout"
+                        asp-route-CartId="@Model?.Cart?.CartId">
+                        CONTINUE TO CHECKOUT
+                    </a>
+
+                    <div class="mt-4">
+                        <img src="~/assets/payment-icons.png" alt="Payment Options" style="height: 110px;" />
+                        <p class="text-muted small mt-2">
+                            Prices and delivery costs are not confirmed until you've reached the checkout.<br />
+                            15 days free returns. Read more about <a href="#" class="text-decoration-underline">return and
+                                refund policy</a>.<br />
+                            Need help? <a href="#" class="text-decoration-underline">Customer Support</a>.<br />
+                            Customers would receive an SMS/WhatsApp notification regarding delivery.
+                        </p>
+                        <a href="#" class="text-decoration-underline fw-semibold">DELIVERY AND RETURN OPTIONS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 60vh;">
+            <img src="~/assets/bag.png" alt="Empty Bag" style="max-width: 120px;" class="mb-4" />
+            <h5 class="fw-semibold">Your Bag Feels Too Light!</h5>
+            <p class="text-muted" style="max-width: 300px;">
+                Looks like your bag is empty. Fill it with things that make you feel stylish.
+            </p>
+            <a asp-controller="Product" asp-action="Index" class="btn btn-black px-4 py-2 mt-2">GET SHOPPING</a>
+        </div>
+    }
+</div>

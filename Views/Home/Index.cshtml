@@ -1,0 +1,68 @@
+﻿@model P2WebMVC.Models.ViewModels.ProductView
+
+@{
+    ViewData["Title"] = "Home";
+    ViewData["NoContainer"] = true;
+
+
+}
+
+
+<!-- Existing Hero Section -->
+<section class="text-white w-100 hero-section"
+    style="background: url('@Url.Content("~/assets/hero-fashion.png")') center/cover no-repeat; height: 95vh;">
+    <div class="container h-100 d-flex align-items-center">
+        <div class="bg-dark bg-opacity-50 p-4 p-md-5 rounded-3 w-100" style="max-width: 600px;">
+            <h1 class="fw-bold display-5 display-md-4">New Season, New Style</h1>
+            <p class="lead mb-4">Discover our latest arrivals. Everyday fashion, redefined.</p>
+            <a asp-controller="Product" asp-action="Index" class="btn btn-light btn-lg rounded-1 shadow-sm px-4">
+                Shop Now
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<div class="bg-white text-muted small py-4 px-3 border-bottom">
+    Offer valid on selected styles. Available online & in-stores. *T&C Apply
+</div>
+
+<!--  New Visual Section -->
+<section class="w-100 d-flex flex-column flex-md-row">
+    <div class="d-flex flex-column flex-md-row">
+        <a class="gaps" asp-controller="Product" asp-action="Index" asp-route-Category="Ladies">
+            <img src="@Url.Content("~/assets/portrait-left.png")" class="img-fluid" alt="Ladies" />
+        </a>
+
+        <a asp-controller="Product" asp-action="Index" asp-route-Category="Ladies">
+            <img src="~/assets/portrait-right.png" class="img-fluid w-100 w-md-50" alt="Right Image">
+        </a>
+    </div>
+
+</section>
+
+
+<div class="container mt-5">
+    <h2 class="text-center fw-bold mb-4">What's New</h2>
+    <div class="row">
+        @foreach (var product in Model.Products.Take(6))
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <a asp-controller="Product" asp-action="Details" asp-route-ProductId="@product.ProductId">
+                        <img src="@product.ProductImage" class="card-img-top" alt="@product.ProductName"
+                            style="height: 350px; object-fit: cover;" />
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@product.ProductName</h5>
+                        <p class="text-muted mb-2">₹@product.ProductPrice</p>
+                        <a asp-controller="Product" asp-action="Details" asp-route-ProductId="@product.ProductId"
+                            class="btn btn-outline-dark rounded-0 px-4">
+                            View
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
