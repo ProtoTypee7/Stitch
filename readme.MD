@@ -35,9 +35,9 @@
         Add-Migration InitialCreate -Context YourDbContextName
         Update-Database
 
-// ADDITIONAL INFO
+# ADDITIONAL INFO
 
-# 🔐 Roles
+🔐 Roles
 
 0 → Admin (you'll need to assign this manually through your database)
 1 → User
