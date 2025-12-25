@@ -1,7 +1,10 @@
+# Stitch – Minimal Fashion Store
+
+Stitch is a fashion-focused web application that allows users to browse products, add items to a cart, and place orders, while providing admins with tools to manage inventory and orders.
 ![Preview](https://github.com/ProtoTypee7/Stitch/blob/2b9b918cd131446967f9bbd25046a15496c09ff3/website.png?raw=true)
 
 
-📦 Required Packages & Setup
+# 📦 Required Packages & Setup
 
 # Install NuGet packages through dotnet ClI
 
